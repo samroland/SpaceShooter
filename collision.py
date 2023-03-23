@@ -82,6 +82,8 @@ class CollisionHandler():
         self.remove_first_entity(arbiter, space, data)
         enemy, bh = [self.get_entity(s) for s in arbiter.shapes]
         bh.value += params.bh_value_factor * enemy.value
+        if bh.g_mass < params.bh_gmass_max:
+            bh.g_mass += params.bh_gmass_factor * enemy.shape.mass * (params.bh_gmass_max - bh.g_mass) / params.bh_gmass_max
         return False
     
     def hurt_bh(self, arbiter, space, data):

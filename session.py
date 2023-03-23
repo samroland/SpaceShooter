@@ -85,10 +85,10 @@ class Session():
         BlackHole(self, sprite=self.black_hole_sprite, position=position)
 
         # spawn enemies
-        for i in range(50):
+        for i in range(500):
             self.spawn_enemy(Diamond, self.diamond_sprite)
-        for i in range(3):
-            self.spawn_spawners()
+        # for i in range(3):
+        #     self.spawn_spawners()
 
         return
 
