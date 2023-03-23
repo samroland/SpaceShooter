@@ -157,7 +157,7 @@ class Hud():
         cursor_x = 0
         cursor_y = 0
 
-        score_string = f"Score:{self.session.score}"
+        score_string = f"Score:{int(self.session.score)}"
         cursor_x, cursor_y = self.writer.write(score_string, self.surface, (cursor_x, cursor_y), boldness=1)
 
         lives_string = str(self.session.lives)

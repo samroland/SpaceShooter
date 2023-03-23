@@ -31,6 +31,7 @@ circle_acceleration = 500.0
 # black hole
 g_constant = 1e4
 g_max_dist_fraction = 0.5 # fraction of screen size
+bh_value_factor = 0.1
 
 # spawner
 mini_rotation_speed = 0.01

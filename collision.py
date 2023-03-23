@@ -8,6 +8,9 @@ class CollisionHandler():
 
         # bullet_handler = self.space.add_wildcard_collision_handler(params.cc_bullet)
         # bullet_handler.begin = self.remove_first_entity
+
+        # Parameter order matters in the collision handlers
+        # Typcially remove the first entity
         
         bullet_wall_handler = self.space.add_collision_handler(params.cc_bullet, params.cc_wall)
         bullet_wall_handler.begin = self.remove_first_entity
@@ -19,7 +22,7 @@ class CollisionHandler():
         bullet_spawner_handler.begin = self.hurt_spawner
 
         bullet_bh_handler = self.space.add_collision_handler(params.cc_bullet, params.cc_bh)
-        bullet_bh_handler.begin = self.remove_first_entity
+        bullet_bh_handler.begin = self.hurt_bh
 
         player_enemy_handler = self.space.add_collision_handler(params.cc_player, params.cc_enemy)
         player_enemy_handler.begin = self.kill_player
@@ -28,7 +31,7 @@ class CollisionHandler():
         player_bh_handler.begin = self.kill_player
 
         enemy_bh_hadler = self.space.add_collision_handler(params.cc_enemy, params.cc_bh)
-        enemy_bh_hadler.begin = self.remove_first_entity
+        enemy_bh_hadler.begin = self.absorb_enemy
 
         spawner_bh_hadler = self.space.add_collision_handler(params.cc_spawner, params.cc_bh)
         spawner_bh_hadler.begin = self.remove_first_entity
@@ -73,4 +76,17 @@ class CollisionHandler():
         # bh2.shape.mass += bh1.shape.mass
         cm_v = (bh1.shape.mass*bh1.body.velocity + bh2.shape.mass*bh2.body.velocity)/(bh1.shape.mass+bh2.shape.mass)
         bh2.body.velocity = cm_v
+        return False
+    
+    def absorb_enemy(self, arbiter, space, data):
+        self.remove_first_entity(arbiter, space, data)
+        enemy, bh = [self.get_entity(s) for s in arbiter.shapes]
+        bh.value += params.bh_value_factor * enemy.value
+        return False
+    
+    def hurt_bh(self, arbiter, space, data):
+        self.remove_first_entity(arbiter, space, data)
+        bh_shape = arbiter.shapes[1]
+        bh = self.get_entity(bh_shape)
+        bh.hurt()
         return False

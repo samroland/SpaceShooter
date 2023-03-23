@@ -181,6 +181,7 @@ class BlackHole(Entity):
             sprite=sprite, position=position, init_angle=0
         )
         self.value = 10
+        self.health = 30
         self.shape.mass = 0.5
         self.shape.elasticity = 0.99
         self.max_dist_sqrd = params.g_max_dist_fraction**2 * min(self.session.screen_size)**2
@@ -189,4 +190,15 @@ class BlackHole(Entity):
     def calculate_velocity(self, body, gravity, damping, dt):
         damping = 0.95
         super().calculate_velocity(body, gravity, damping, dt)
+        return
+    
+    def hurt(self):
+        self.health -= 1
+        return
+    
+    def update(self):
+        if self.health == 0:
+            self.remove = True
+            self.session.score += self.value
+        super().update()
         return
