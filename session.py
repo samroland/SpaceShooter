@@ -26,8 +26,10 @@ class Session():
         pygame.init()
 
         self.flags = pygame.FULLSCREEN
-        display_size = pygame.display.list_modes()[0]
-        self.screen = pygame.display.set_mode(size=display_size, flags=self.flags, vsync=1)
+        display_size = pygame.display.list_modes()[0] 
+        # size=display_size, for max resolution
+        # size=(0,0) for lower resolution
+        self.screen = pygame.display.set_mode(size=(0,0), flags=self.flags, vsync=1)
         self.screen_size = pygame.display.get_window_size()
         self.clock = pygame.time.Clock()
 
