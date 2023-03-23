@@ -21,11 +21,11 @@ class CollisionHandler():
         bullet_bh_handler = self.space.add_collision_handler(params.cc_bullet, params.cc_bh)
         bullet_bh_handler.begin = self.remove_first_entity
 
-        # player_enemy_handler = self.space.add_collision_handler(params.cc_player, params.cc_enemy)
-        # player_enemy_handler.begin = self.kill_player
+        player_enemy_handler = self.space.add_collision_handler(params.cc_player, params.cc_enemy)
+        player_enemy_handler.begin = self.kill_player
 
-        # player_bh_handler = self.space.add_collision_handler(params.cc_player, params.cc_bh)
-        # player_bh_handler.begin = self.kill_player
+        player_bh_handler = self.space.add_collision_handler(params.cc_player, params.cc_bh)
+        player_bh_handler.begin = self.kill_player
 
         enemy_bh_hadler = self.space.add_collision_handler(params.cc_enemy, params.cc_bh)
         enemy_bh_hadler.begin = self.remove_first_entity
